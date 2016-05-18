@@ -134,6 +134,9 @@ def main():
 					print res
 				elif u'цп в лс' in words[1].strip():
 					res = vk.messages.send(chat_id=r['chat_id'],attachment=u'photo-114839877_413114704')
+				elif u'кожерожу' in words[1].strip():
+					res = vk.messages.send(chat_id=r['chat_id'],attachment=u'photo365155770_416629759')
+					#photo359033091_418588993
 				elif u'солевую' in words[1].strip():
 					photo = photos[random.randint(0,len(photos)-1)]
 					res = vk.messages.send(chat_id=r['chat_id'],attachment=photo)
