@@ -52,6 +52,18 @@ def load_config():
 def send_quote(data):
 	r = requests.post("http://perevedko.pythonanywhere.com/add", data={'text': data})
 
+def get_joke():
+	msg = '[random kojeded\'s joke]'
+	try:
+		jokes = json.loads(urllib.urlopen('http://perevedko.pythonanywhere.com/jokes.json').read())
+		jokes = set(jokes)
+		msg = random.sample(jokes,1)
+	except Exception as err:
+		print 'error while retrieving jokes...'
+		print err
+
+	return msg
+
 def getAneks():
 	pass
 
@@ -77,7 +89,7 @@ def main():
 	login = config.get('vk','login')
 	password = config.get('vk','password')
 	vk_session = vk_api.VkApi(login, password)
-	
+
 	try:
 		vk_session.authorization()
 	except vk_api.AuthorizationError as error_msg:
@@ -97,8 +109,10 @@ def main():
 		for r in response['items']:
 			if r['user_id'] == 51007975 and r['read_state'] == 0:
 				send_quote(r['body'])
+				msg = get_joke()
 				try:
 					vk.messages.markAsRead(message_ids=r['id'])
+					res = vk.messages.send(chat_id=r['chat_id'],message=msg,forward_messages=r['id'])
 				except requests.exceptions.ConnectionError as err:
 					print err
 			if u'питун' in r['body'] and r['read_state'] == 0:
@@ -117,15 +131,11 @@ def main():
 					photo = photos[random.randint(0,len(photos)-1)]
 					res = vk.messages.send(chat_id=r['chat_id'],attachment=photo)
 				elif u'кожешутку' in words[1].strip():
-					msg = '[random kojeded\'s joke]'
+					msg = get_joke()
 					try:
-						jokes = json.loads(urllib.urlopen('http://perevedko.pythonanywhere.com/jokes.json').read())
-						jokes = set(jokes)
-						msg = random.sample(jokes,1)
+						res = vk.messages.send(chat_id=r['chat_id'],message=msg)
 					except Exception as err:
-						print 'error while retrieving jokes...'
 						print err
-					res = vk.messages.send(chat_id=r['chat_id'],message=msg)
 				elif u'что такое' in words[1]:
 					try:
 						what = words[1].split(u'что такое')[1]
