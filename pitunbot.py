@@ -29,6 +29,7 @@ config = None
 mamka = u'МАМКУ КОЖЕДЕДА ЕБАЛ))'
 
 photos = [u'photo246855283_402012939',u'photo246855283_400065588',u'photo246855283_390112782',u'photo246855283_372545561',u'photo-85449651_357908801',u'photo-85449651_357908893',u'photo-85449651_357908911',u'photo-85449651_357909122']
+pony = [u'ПЕТУХ ЗАКУКАРЕКАЛ!',u'ПАДИ ПАДМОЙСЯ, МАНЯ!',u'КОКОКОКОК',u'Что, простите?',u'Переведите с петушиного, пожалуйста.']
 
 def load_config():
 	global config
@@ -107,6 +108,12 @@ def main():
 			time.sleep(10)
 			next
 		for r in response['items']:
+			if r['user_id'] == 233657566 and r['read_state'] == 0:
+				try:
+					msg = random.choice(pony)
+					vk.messages.send(chat_id=r['chat_id'],message=msg,forward_messages=r['id'])
+				except Exception as err:
+					print err
 			if r['user_id'] == 51007975 and r['read_state'] == 0:
 				send_quote(r['body'])
 				msg = get_joke()
