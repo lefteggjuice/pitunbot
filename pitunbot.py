@@ -114,7 +114,7 @@ def main():
 					vk.messages.send(chat_id=r['chat_id'],message=msg,forward_messages=r['id'])
 				except Exception as err:
 					print err
-			if r['user_id'] == 51007975 and r['read_state'] == 0:
+			if ( r['user_id'] == 51007975 or r['user_id'] == 50158587 ) and r['read_state'] == 0:
 				send_quote(r['body'])
 				msg = get_joke()
 				try:
