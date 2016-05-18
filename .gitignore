@@ -1,0 +1,5 @@
+*.pyc
+config.cfg
+vk_config.json
+*.log
+simple_example.py
