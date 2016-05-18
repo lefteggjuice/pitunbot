@@ -30,6 +30,7 @@ mamka = u'МАМКУ КОЖЕДЕДА ЕБАЛ))'
 
 photos = [u'photo246855283_402012939',u'photo246855283_400065588',u'photo246855283_390112782',u'photo246855283_372545561',u'photo-85449651_357908801',u'photo-85449651_357908893',u'photo-85449651_357908911',u'photo-85449651_357909122']
 pony = [u'ПЕТУХ ЗАКУКАРЕКАЛ!',u'ПАДИ ПАДМОЙСЯ, МАНЯ!',u'КОКОКОКОК',u'Что, простите?',u'Переведите с петушиного, пожалуйста.']
+skinfaces = [u'photo12521874_384139738',u'photo33777099_304108707',u'photo12521874_377309715',u'photo12521874_323942847',u'photo12521874_301761307',u'photo33777099_313775847']
 
 def load_config():
 	global config
@@ -135,8 +136,7 @@ def main():
 				elif u'цп в лс' in words[1].strip():
 					res = vk.messages.send(chat_id=r['chat_id'],attachment=u'photo-114839877_413114704')
 				elif u'кожерожу' in words[1].strip():
-					res = vk.messages.send(chat_id=r['chat_id'],attachment=u'photo365155770_416629759')
-					#photo359033091_418588993
+					res = vk.messages.send(chat_id=r['chat_id'],attachment=random.choice(skinfaces))
 				elif u'солевую' in words[1].strip():
 					photo = photos[random.randint(0,len(photos)-1)]
 					res = vk.messages.send(chat_id=r['chat_id'],attachment=photo)
