@@ -172,6 +172,18 @@ def main():
 					except Exception as err:
 						print err
 						traceback.print_exc()
+				elif u'курс' in words[1]:
+					try:
+						res = urllib.urlopen('https://api.fixer.io/latest?base=USD&symbols=RUB').read()
+						obj = json.loads(res)
+						price = obj['rates']['RUB']
+						msg = str(price)+u' деревянных за доллар. Скален!'
+
+						vk.messages.send(forward_messages=r['id'],chat_id=r['chat_id'],message=msg)
+						# https://api.fixer.io/latest?base=USD&symbols=RUB
+					except Exception as err:
+						print err
+						traceback.print_exc()
 				elif u'или' in words[1]:
 					try:
 						com = re.sub(u',?','',words[1])
