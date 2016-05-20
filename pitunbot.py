@@ -137,6 +137,15 @@ def main():
 					res = vk.messages.send(chat_id=r['chat_id'],attachment=u'photo-114839877_413114704')
 				elif u'кожерожу' in words[1].strip():
 					res = vk.messages.send(chat_id=r['chat_id'],attachment=random.choice(skinfaces))
+				elif u'кожебабу' in words[1].strip():
+					try:
+						photos = vk.photos.get(owner_id=33777099,album_id=-6,rev=True,extended=True)['items']
+						photo = random.choice(photos)
+						attachment = 'photo33777099_'+str(photo['id'])
+						vk.messages.send(chat_id=r['chat_id'],attachment=attachment)
+					except Exception as err:
+						print err
+						traceback.print_exc()
 				elif u'солевую' in words[1].strip():
 					photo = photos[random.randint(0,len(photos)-1)]
 					res = vk.messages.send(chat_id=r['chat_id'],attachment=photo)
