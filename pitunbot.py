@@ -174,10 +174,14 @@ def main():
 						traceback.print_exc()
 				elif u'или' in words[1]:
 					try:
-						com = re.sub(u'питун,?','',words[1])
+						# com = re.sub(u',?','',words[1])
+						# choices = com.split(u'или')
+						# msg = choices[random.randint(0,1)].replace('?','')
+						# msg = u'Ящитаю, '+msg
+						com = re.sub(u',?','',words[1])
 						choices = com.split(u'или')
-						msg = choises[random.randint(0,1)].replace('?')
-						msg = 'Ящитаю, '+msg
+						msg = choices[random.randint(0,1)].replace('?','')
+						msg = u'Ящитаю, '+msg
 						vk.messages.send(forward_messages=r['id'],chat_id=r['chat_id'],message=msg)
 					except Exception as err:
 						print err
