@@ -23,6 +23,7 @@ import json
 import traceback
 import ConfigParser
 import os.path, sys
+import re
 
 config = None
 
@@ -168,6 +169,16 @@ def main():
 						what = words[1].split(u'гугл')[1]
 						msg = google(what,'link')
 						vk.messages.send(chat_id=r['chat_id'],message=msg)
+					except Exception as err:
+						print err
+						traceback.print_exc()
+				elif u'или' in words[1]:
+					try:
+						com = re.sub(u'питун,?','',words[1])
+						choices = com.split(u'или')
+						msg = choises[random.randint(0,1)].replace('?')
+						msg = 'Ящитаю, '+msg
+						vk.messages.send(forward_messages=r['id'],chat_id=r['chat_id'],message=msg)
 					except Exception as err:
 						print err
 						traceback.print_exc()
