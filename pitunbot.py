@@ -124,7 +124,13 @@ def main():
 					res = vk.messages.send(chat_id=r['chat_id'],message=msg,forward_messages=r['id'])
 				except requests.exceptions.ConnectionError as err:
 					print err
-			if u'питун' in r['body'] and r['read_state'] == 0:
+			if r['body'].lower() == u'кек' and r['read_state'] == 0:
+				try:
+					vk.messages.markAsRead(message_ids=r['id'])
+					vk.messages.send(chat_id=r['chat_id'],message=u'макек!',forward_messages=r['id'])
+				except requests.exceptions.ConnectionError as err:
+					print err
+			if u'питун' in r['body'].lower() and r['read_state'] == 0:
 				print r['body']
 				words = r['body'].split(u'питун')
 				print words[1]
