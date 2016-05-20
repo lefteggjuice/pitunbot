@@ -33,6 +33,8 @@ photos = [u'photo246855283_402012939',u'photo246855283_400065588',u'photo2468552
 pony = [u'ПЕТУХ ЗАКУКАРЕКАЛ!',u'ПАДИ ПАДМОЙСЯ, МАНЯ!',u'КОКОКОКОК',u'Что, простите?',u'Переведите с петушиного, пожалуйста.']
 skinfaces = [u'photo12521874_384139738',u'photo33777099_304108707',u'photo12521874_377309715',u'photo12521874_323942847',u'photo12521874_301761307',u'photo33777099_313775847',u'photo365155770_416897791',u'photo365155770_416897790',u'photo365155770_416897793']
 
+black = [11878346]
+
 def load_config():
 	global config
 	config = ConfigParser.RawConfigParser()
@@ -110,6 +112,12 @@ def main():
 			time.sleep(10)
 			next
 		for r in response['items']:
+			if r['user_id'] in black and r['read_state'] == 0:
+				try:
+					vk.messages.markAsRead(message_ids=r['id'])
+					next
+				except Exception as err:
+					print err
 			if r['user_id'] == 233657566 and r['read_state'] == 0:
 				try:
 					msg = random.choice(pony)
