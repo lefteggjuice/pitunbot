@@ -175,13 +175,13 @@ def main():
 				elif u'или' in words[1]:
 					try:
 						com = re.sub(u',?','',words[1])
-						print '"or" command string: '+com
-						choices = com.split(u'или')
-						print 'choices: '
-						print choices
+						m = re.match(ur'(.+)\s+или\s+(.+)',com)
+						print m.group(1)
+						print m.group(2)
+						choices = [m.group(1),m.group(2)]
 						msg = choices[random.randint(0,1)].replace('?','')
-						print 'final message: '+msg
 						msg = u'Ящитаю, '+msg
+
 						vk.messages.send(forward_messages=r['id'],chat_id=r['chat_id'],message=msg)
 					except Exception as err:
 						print err
