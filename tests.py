@@ -24,12 +24,15 @@ def currency():
 	print msg
 
 def delimiter():
-	r = {'body':u'кожешутку!'}
+	r = {'body':u'раньше сплит по питун,?'}
+	if not re.match(ur'^питун',r['body'], re.I | re.U):
+		print 'no'
+		return
 
 	m = re.match(u'питун,?\s*?(.+)',r['body'],re.I | re.U)
-	if not m:
-		print 'NEXT'
-		return
+	# if not m:
+	# 	print 'NEXT'
+	# 	return
 	words = [u'питун',m.group(1)] #words are DEPRICATED and will be removed soon.
 
 	print words[1]

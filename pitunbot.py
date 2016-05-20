@@ -130,15 +130,15 @@ def main():
 					vk.messages.send(chat_id=r['chat_id'],message=u'макек!',forward_messages=r['id'])
 				except requests.exceptions.ConnectionError as err:
 					print err
-			if u'питун' in r['body'].lower() and r['read_state'] == 0:
+
+			matcher = re.match(ur'^питун,?\s*?(.+)',r['body'],re.I | re.U)
+
+			if matcher and r['read_state'] == 0:
 				print r['body']
 
-				m = re.match(u'питун,?\s*?(.+)',r['body'],re.I | re.U)
-				if not m:
-					# It's not a pitun command. Next iteration
-					next
+				# m = re.match(u'питун,?\s*?(.+)',r['body'],re.I | re.U)
 
-				words = [u'питун',m.group(1)] #words are DEPRICATED and will be removed soon.
+				words = [u'питун',matcher.group(1)] #words are DEPRICATED and will be removed soon.
 				print words[1]
 				if words[1].strip() == u'мать':
 					try:
