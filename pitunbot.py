@@ -132,7 +132,13 @@ def main():
 					print err
 			if u'питун' in r['body'].lower() and r['read_state'] == 0:
 				print r['body']
-				words = r['body'].split(u'питун')
+
+				m = re.match(u'питун,?\s*?(.+)',r['body'],re.I | re.U)
+				if not m:
+					# It's not a pitun command. Next iteration
+					next
+
+				words = [u'питун',m.group(1)] #words are DEPRICATED and will be removed soon.
 				print words[1]
 				if words[1].strip() == u'мать':
 					try:
